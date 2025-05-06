@@ -20,19 +20,19 @@ export default function Header() {
                         <img src={logo} height={'40vh'} />
                     </Box>
                     <Box sx={{display:{xs:'none',md:'flex'}}}>
-                        <Button color="inherit">
+                        <Button color="inherit" onClick={()=>navigate("/")}>
                             Home
                         </Button>
-                        <Button color="inherit">
+                        <Button color="inherit" onClick={()=>navigate("/about")}>
                             About
                         </Button>
-                        <Button color="inherit">
+                        <Button color="inherit" onClick={()=>navigate("/contact")}>
                             Contact
                         </Button>
                         <Button color="success" variant="contained" sx={{mx:'1vh'}} onClick={()=>navigate("/login")}>
                             Login
                         </Button>
-                        <Button color="secondary" variant="contained">
+                        <Button color="secondary" variant="contained" onClick={()=>navigate("/signup")}>
                             Sign Up
                         </Button>
                     </Box>
@@ -48,7 +48,7 @@ export default function Header() {
                             </Typography>
                             <List>
                                 <ListItem disablePadding> 
-                                    <ListItemButton>
+                                    <ListItemButton onClick={()=>navigate('/')}>
                                         <ListItemIcon>
                                             <HomeIcon />
                                         </ListItemIcon>
@@ -56,7 +56,7 @@ export default function Header() {
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem disablePadding> 
-                                    <ListItemButton>
+                                    <ListItemButton onClick={()=>navigate('/about')}>
                                         <ListItemIcon>
                                             <InfoIcon />
                                         </ListItemIcon>
@@ -64,7 +64,7 @@ export default function Header() {
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem disablePadding> 
-                                    <ListItemButton>
+                                    <ListItemButton onClick={()=>navigate('/contact')}>
                                         <ListItemIcon>
                                             <CallIcon />
                                         </ListItemIcon>
@@ -77,7 +77,7 @@ export default function Header() {
                                     </Button>
                                 </ListItem>
                                 <ListItem>
-                                    <Button sx={{flexGrow:1}} variant="contained" color="secondary">
+                                    <Button sx={{flexGrow:1}} variant="contained" color="secondary" onClick={()=>navigate("/signup")}>
                                         Sign Up
                                     </Button>
                                 </ListItem>

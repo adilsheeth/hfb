@@ -52,7 +52,7 @@ export default function Login(){
         })
     }
 
-    if (!false) { return (
+    if (!loading) { return (
         <Box>
             <Header />
             <Grid container direction={'column'} alignItems={'center'} justifyContent={'center'} height='84vh' spacing={5} padding={5}>
