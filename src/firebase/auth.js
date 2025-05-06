@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "./config";
 
 
@@ -10,8 +10,8 @@ export const signInUser = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
 }
 
-export const signOut = () => {
-    return auth.signOut();
+export const signOutUser = () => {
+    return signOut(auth);
 }
 
 //TODO: Pwd Reset, Change, Verification Email
