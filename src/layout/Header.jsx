@@ -6,10 +6,23 @@ import InfoIcon from '@mui/icons-material/Info';
 import CallIcon from '@mui/icons-material/Call';
 import {useState} from 'react'
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../firebase/authContext";
+import { signOutUser } from "../firebase/auth";
 
 export default function Header() {
     const [ open, setOpen ] = useState(false);
     const navigate = useNavigate();
+    const { userLoggedIn } = useAuth();
+
+    const onSignOut = () => {
+        signOutUser()
+        .then(() => {
+            navigate("/")
+        })
+        .catch((e) => {
+            console.log(e)
+        })
+    }
 
 
     if (!false) { return (
@@ -29,12 +42,27 @@ export default function Header() {
                         <Button color="inherit" onClick={()=>navigate("/contact")}>
                             Contact
                         </Button>
-                        <Button color="success" variant="contained" sx={{mx:'1vh'}} onClick={()=>navigate("/login")}>
-                            Login
-                        </Button>
-                        <Button color="secondary" variant="contained" onClick={()=>navigate("/signup")}>
-                            Sign Up
-                        </Button>
+                        {
+                            userLoggedIn ? (
+                                <>
+                                    <Button color="success" variant="contained"  sx={{mx:'1vh'}} onClick={()=>navigate("/dashboard")}>
+                                        Dashboard
+                                    </Button>
+                                    <Button color="error" variant="contained" sx={{mx:'1vh'}} onClick={()=>onSignOut()}>
+                                        Logout
+                                    </Button>
+                                </>
+                            ) : (
+                                <>
+                                    <Button color="success" variant="contained" sx={{mx:'1vh'}} onClick={()=>navigate("/login")}>
+                                        Login
+                                    </Button>
+                                    <Button color="secondary" variant="contained" onClick={()=>navigate("/signup")}>
+                                        Sign Up
+                                    </Button>
+                                </>
+                            )
+                        }
                     </Box>
                 </Box>
                 <Box sx={{flexGrow:1, display:{xs:'flex',md:"none"}}}>
@@ -71,16 +99,35 @@ export default function Header() {
                                         <ListItemText primary="Contact Us" />
                                     </ListItemButton>
                                 </ListItem>
-                                <ListItem>
-                                    <Button sx={{flexGrow:1}} variant="contained" color="primary" onClick={()=>navigate("/login")}>
-                                        Login
-                                    </Button>
-                                </ListItem>
-                                <ListItem>
-                                    <Button sx={{flexGrow:1}} variant="contained" color="secondary" onClick={()=>navigate("/signup")}>
-                                        Sign Up
-                                    </Button>
-                                </ListItem>
+                                {
+                                    userLoggedIn ? (
+                                        <>
+                                            <ListItem>
+                                                <Button sx={{flexGrow:1}} variant="contained" color="primary" onClick={()=>navigate("/dashboard")}>
+                                                    Dashboard
+                                                </Button>
+                                            </ListItem>
+                                            <ListItem>
+                                                <Button sx={{flexGrow:1}} variant="contained" color="error" onClick={()=>onSignOut()}>
+                                                    Logout
+                                                </Button>
+                                            </ListItem>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <ListItem>
+                                                <Button sx={{flexGrow:1}} variant="contained" color="primary" onClick={()=>navigate("/login")}>
+                                                    Login
+                                                </Button>
+                                            </ListItem>
+                                            <ListItem>
+                                                <Button sx={{flexGrow:1}} variant="contained" color="secondary" onClick={()=>navigate("/signup")}>
+                                                    Sign Up
+                                                </Button>
+                                            </ListItem>
+                                        </>
+                                    )
+                                }
                             </List>
                         </Box>
                     </Drawer>

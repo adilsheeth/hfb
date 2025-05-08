@@ -14,8 +14,6 @@ export default function Login(){
     const [ passwordErr, setPasswordErr ] = useState(false);
     const { userLoggedIn, loading, currentUser } = useAuth();
 
-    console.log(userLoggedIn, loading, currentUser) // TODO remove debug statement
-
     useEffect(()=>{
         if (userLoggedIn) {
             navigate("/dashboard")
@@ -46,6 +44,7 @@ export default function Login(){
         signInUser(email, password)
         .then((u) => {
             console.log("Signed in", u) //TODO remove
+            navigate("/dashboard")
         })
         .catch((e)=> {
             console.log(e)

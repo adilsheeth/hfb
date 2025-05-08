@@ -3,7 +3,6 @@ import Header from "../layout/Header";
 import { useAuth } from "../firebase/authContext";
 import { useNavigate } from "react-router-dom";
 import { signOutUser } from "../firebase/auth";
-import { useState } from "react";
 
 
 export default function Dashboard(){
