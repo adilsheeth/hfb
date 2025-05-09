@@ -8,6 +8,7 @@ import { AuthProvider } from "./firebase/authContext";
 import Dashboard from "./pages/Dashboard";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import PrivateRoutes from "./routes/PrivateRoutes";
 
 const root = createRoot(document.getElementById('root'));
 
@@ -19,9 +20,11 @@ root.render(
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/about" element={<About />} />
+                    <Route element={<PrivateRoutes />}>
+                        <Route path="/dashboard" element={<Dashboard />} />
+                    </Route>
                 </Routes>
             </BrowserRouter>
         </AuthProvider>
