@@ -22,6 +22,7 @@ export const createUserRecord = async (user, details) => {
         name: details.name,
         phone: details.phone,
         address: details.address,
+        orders: [""],
     });
 } 
 

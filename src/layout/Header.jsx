@@ -30,7 +30,7 @@ export default function Header() {
             <Toolbar> 
                 <Box sx={{flexGrow:1, display:{xs:'none',md:'flex'}}}>
                     <Box sx={{flexGrow:1, display:{xs:'none',md:'flex'}}}>
-                        <img src={logo} height={'40vh'} />
+                        <img src={logo} height={'40vh'} alt="logo" />
                     </Box>
                     <Box sx={{display:{xs:'none',md:'flex'}}}>
                         <Button color="inherit" onClick={()=>navigate("/")}>
@@ -132,7 +132,7 @@ export default function Header() {
                         </Box>
                     </Drawer>
                     <Box sx={{flexGrow:1, alignContent:'center'}}>
-                        <img src={logo} height={'45vh'} sx={{display:'block',margin:'0 auto'}}/>
+                        <img alt="logo" src={logo} height={'45vh'} sx={{display:'block',margin:'0 auto'}}/>
                     </Box>
                 </Box>
             </Toolbar>

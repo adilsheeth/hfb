@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../firebase/authContext";
 import { createUser, createUserRecord } from "../firebase/auth"
-import { set } from "firebase/database";
-import Autocomplete from "react-google-autocomplete";
 import { usePlacesWidget } from "react-google-autocomplete";
 
 

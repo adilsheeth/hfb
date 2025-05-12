@@ -1,6 +1,5 @@
-import { useEffect } from "react"
 import Header from "../layout/Header";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 
 
 export default function Home() {

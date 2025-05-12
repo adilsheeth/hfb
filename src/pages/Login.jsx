@@ -12,7 +12,7 @@ export default function Login(){
     const [ password, setPassword ] = useState("");
     const [ emailErr, setEmailErr ] = useState(false);
     const [ passwordErr, setPasswordErr ] = useState(false);
-    const { userLoggedIn, loading, currentUser } = useAuth();
+    const { userLoggedIn, loading } = useAuth();
 
     useEffect(()=>{
         if (userLoggedIn) {
