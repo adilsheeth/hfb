@@ -167,7 +167,9 @@ export function UserDetails({userDetails}) {
                 'phone': phoneNumber,
                 'address': address
             });
-            navigate("/dashboard")
+        })
+        .then(() => {
+            navigate("/dashboard");
         })
         .catch((e) => {
             if (e.code === "auth/email-already-in-use") {
