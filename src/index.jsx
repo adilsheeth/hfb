@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import PrivateRoutes from "./routes/PrivateRoutes";
+import NewOrder from "./pages/NewOrder";
 
 const root = createRoot(document.getElementById('root'));
 
@@ -24,6 +25,7 @@ root.render(
                     <Route path="/about" element={<About />} />
                     <Route element={<PrivateRoutes />}>
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/new-order" element={<NewOrder />} />
                     </Route>
                 </Routes>
             </BrowserRouter>

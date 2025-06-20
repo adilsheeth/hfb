@@ -27,28 +27,19 @@ export default function Dashboard(){
         return () => unsubscribe();
     }, [currentUser]);
 
-    const onSignOut = () => {
-        signOutUser()
-        .then(() => {
-            navigate("/")
-        })
-        .catch((e) => {
-            console.log(e)
-        })
-    }
-
      return (
         <Box>
             <Header />
             <Box>
             <Typography
                 variant="h5"
-                sx={{ mb: 2, textAlign: "center", mx: 2 }}
+                sx={{ mb: 2, textAlign: "center", mx: 2, my: 4 }}
             >
-                Hi {currentUser ? currentUser.email : ""}
+                Hi {currentUser ? currentUser.name : ""}
             </Typography>
-            <Button onClick={onSignOut} sx={{ mb: 4 }}>
-                Sign Out
+
+            <Button onClick={() => navigate("/new-order")} variant="contained" sx={{ mb: 4 }}>
+                Create New Order
             </Button>
             <Typography variant="h6" sx={{ mb: 2 }}>
                 Your Orders
