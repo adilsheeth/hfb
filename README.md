@@ -8,6 +8,15 @@ To run this project, clone the repository locally and run the following commands
 npm install
 npm start
 ```
+To login, you may choose to create an account, or use the provided dummy account:
+
+```
+email: dummy@gmail.com
+password: password1!
+```
+
+To access the admin panel (which is currently *unsecured*), navigate to the suburl `/admin`.
+
 
 ## Component A
 Project Documentation
@@ -120,6 +129,8 @@ Complete Software Solution
 ### Producing and Implementing
 The HFB PWA was developed using a combination of modern web technologies, including React for the frontend, Node.js for the backend, and Firebase for real-time database and authentication. The project was structured to ensure modularity and maintainability, with clear separation of concerns between the frontend and backend components.
 
+Appropriate algorithm design was employed to handle key functionalities such as product availability checking, booking management, and payment processing. The algorithms were designed to be efficient and scalable, ensuring that the PWA can handle a growing number of users and bookings without performance degradation.
+
 Version control was managed using Git, with regular commits to the repository to track changes and ensure a clear history of development. The project was deployed using Firebase Hosting, which provides a fast and reliable platform for serving the PWA.
 
 ### Testing and Evaluating
@@ -133,4 +144,4 @@ The project underwent extensive testing to ensure functionality, performance, an
 Code in JavaScript was optimised for performance, with a focus on reducing load times and ensuring a smooth user experience. The PWA was designed to be responsive and mobile-friendly, with a clean and intuitive interface that allows users to easily browse products, make bookings, and manage their accounts.
 
 ## Component C
-Presentation
+Presentation is attached to the Google Classroom submission.

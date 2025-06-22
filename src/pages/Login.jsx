@@ -30,7 +30,6 @@ export default function Login(){
     }
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log("Submit!", email, password) //TODO remove debug statement
 
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             setEmailErr(true);
@@ -43,11 +42,11 @@ export default function Login(){
 
         signInUser(email, password)
         .then((u) => {
-            console.log("Signed in", u) //TODO remove
             navigate("/dashboard")
         })
         .catch((e)=> {
             console.log(e)
+            alert("Something went wrong. Please try again!")
         })
     }
 

@@ -48,7 +48,6 @@ export function AccountDetails({setAppState, setUserDetails}) {
 
     const onNext = (e) => {
         e.preventDefault();
-        console.log("Submit!", email, password, confirmPassword) //TODO remove
 
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             setEmailErr(true);
@@ -156,11 +155,8 @@ export function UserDetails({userDetails}) {
             return;
         }
 
-        console.log("Submit!", name, phoneNumber, address, userDetails[0].email, userDetails[0].password) //TODO remove debug statement
-
         createUser(userDetails[0].email, userDetails[0].password)
         .then((u) => {
-            console.log("Account Created", u) //TODO remove
             createUserRecord(u.user, {
                 'email': userDetails[0].email,
                 'name': name,
