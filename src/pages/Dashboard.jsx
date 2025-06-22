@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { db } from "../firebase/config";
 import { ref, onValue } from "firebase/database";
 
-export default function Dashboard(){
+export default function Dashboard({ newOrderInfo, setNewOrderInfo }) {
     const navigate = useNavigate();
     const { currentUser } = useAuth();
     const [orders, setOrders] = useState([]);
