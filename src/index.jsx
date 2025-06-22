@@ -12,6 +12,7 @@ import PrivateRoutes from "./routes/PrivateRoutes";
 import NewOrder from "./pages/NewOrder";
 import Summary from "./pages/Summary";
 import Success from "./pages/Success";
+import Admin from "./pages/Admin";
 
 const root = createRoot(document.getElementById('root'));
 
@@ -25,6 +26,7 @@ root.render(
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/about" element={<About />} />
+                    <Route path="/admin" element={<Admin />} />
                     <Route element={<PrivateRoutes />}>
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/new-order" element={<NewOrder />} />
