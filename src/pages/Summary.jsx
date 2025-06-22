@@ -113,7 +113,7 @@ export default function Summary() {
                                     if (acc.feedingChair) accessories += 35;
                                 }
                                 let delivery = order.deliver === 'yes' ? 10 : 0;
-                                let total = (base + accessories) * duration + delivery;
+                                let total = duration * (base + accessories) + delivery;
                                 return `$${total}`;
                             })()}
                         </Typography>

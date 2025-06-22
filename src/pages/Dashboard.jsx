@@ -164,14 +164,14 @@ export default function Dashboard() {
                                                         try { acc = typeof order.accessories === 'string' ? JSON.parse(order.accessories) : order.accessories; } catch { acc = {}; }
                                                         let accTotal = 0;
                                                         if (acc) {
-                                                            if (acc.breastPump) accTotal += 10;
-                                                            if (acc.pram) accTotal += 15;
-                                                            if (acc.cot) accTotal += 20;
-                                                            if (acc.feedingChair) accTotal += 10;
+                                                            if (acc.breastPump) accTotal += 35;
+                                                            if (acc.pram) accTotal += 40;
+                                                            if (acc.cot) accTotal += 30;
+                                                            if (acc.feedingChair) accTotal += 35;
                                                         }
                                                         let delivery = order.deliver === 'yes' ? 10 : 0;
                                                         // Total
-                                                        let total = (base * duration) + accTotal + delivery;
+                                                        let total = duration * (base + accTotal) + delivery;
                                                         return `$${total}`;
                                                     })()}
                                                 </span>

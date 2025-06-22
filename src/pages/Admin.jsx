@@ -112,19 +112,19 @@ export default function Admin() {
                                 Total Cost:
                                 <span style={{ fontWeight: 700, color: '#1976d2', marginLeft: 8 }}>
                                     {(() => {
-                                        let base = order.brand === 'britex' ? 75 : 55;
+                                        let base = order.brand === 'maxi-cosi' ? 55 : order.brand === 'britex' ? 75 : 0;
                                         let duration = Number(order.duration) || 1;
                                         let acc = {};
                                         try { acc = typeof order.accessories === 'string' ? JSON.parse(order.accessories) : order.accessories; } catch { acc = {}; }
                                         let accTotal = 0;
                                         if (acc) {
-                                            if (acc.breastPump) accTotal += 10;
-                                            if (acc.pram) accTotal += 15;
-                                            if (acc.cot) accTotal += 20;
-                                            if (acc.feedingChair) accTotal += 10;
+                                            if (acc.breastPump) accTotal += 35;
+                                            if (acc.pram) accTotal += 40;
+                                            if (acc.cot) accTotal += 30;
+                                            if (acc.feedingChair) accTotal += 35;
                                         }
                                         let delivery = order.deliver === 'yes' ? 10 : 0;
-                                        let total = (base * duration) + accTotal + delivery;
+                                        let total = duration * (base + accTotal) + delivery;
                                         return `$${total}`;
                                     })()}
                                 </span>
@@ -135,7 +135,7 @@ export default function Admin() {
                             <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'text.primary', mb: 0.5 }}>Customer Details</Typography>
                             <Typography variant="body2" sx={{ color: 'text.secondary' }}>Name: <span style={{ color: '#333' }}>{order.customer?.name || 'N/A'}</span></Typography>
                             <Typography variant="body2" sx={{ color: 'text.secondary' }}>Email: <span style={{ color: '#333' }}>{order.customer?.email || 'N/A'}</span></Typography>
-                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>Phone: <span style={{ color: '#333' }}>{order.customer?.phone || 'N/A'}</span></Typography>
+                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>Phone: <span style={{ color: '#333' }}>+61 {order.customer?.phone || 'N/A'}</span></Typography>
                             <Typography variant="body2" sx={{ color: 'text.secondary' }}>Address: <span style={{ color: '#333' }}>{order.customer?.address || 'N/A'}</span></Typography>
                         </Box>
                     </CardContent>
