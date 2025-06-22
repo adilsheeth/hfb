@@ -1,36 +1,40 @@
 import Header from '../layout/Header';
 import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useOutletContext } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import { LocalizationProvider, DatePicker, TimePicker } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 export default function NewOrder() {
 
-    const [ state, setState ] = useState("start");
     const [ age, setAge ] = useState("");
     const [ type, setType ] = useState("");
     const [ brand, setBrand ] = useState("");
     const [ deliver, setDeliver ] = useState("");
+    const [ date, setDate ] = useState(null);
+    const [ time, setTime ] = useState(null);
+    const [ duration, setDuration ] = useState(1);
     const [ accessories, setAccessories ] = useState({
         breastPump: false,
         pram: false,
         cot: false,
-        feedingChair: false
+        feedingChair: false,
     });
 
     const navigate = useNavigate();
-    const { newOrderInfo, setNewOrderInfo } = useOutletContext();
 
     const handleSubmit = () => {
-        if (age && type && brand && deliver) {
-            const orderDetails = {
-                age,
-                type,
-                brand,
-                deliver,
-                accessories
-            };
-            setNewOrderInfo(orderDetails);
+        if (age && type && brand && deliver && date && time && duration) {
+            const orderDetails = JSON.stringify({
+                "age": age,
+                "type": type,
+                "brand": brand,
+                "deliver": deliver,
+                "date": date,
+                "time": time,
+                "duration": duration,
+                "accessories": JSON.stringify(accessories)
+            });
             navigate("/summary", { state: { orderDetails } });
         } else {
             alert("Please fill in all required fields.");
@@ -56,15 +60,15 @@ export default function NewOrder() {
                     {
                         age ? (
                             age === "0-2" ? (
-                                <Typography variant='body1' sx={{ mt: 2 }} color='warning'>
+                                <Typography variant='body1' sx={{ mt: 2 }} color='info'>
                                     For children aged 0-2, we recommend rear-facing car seats.
                                 </Typography>
                             ) : age === "3-8" ? (
-                                <Typography variant='body1' sx={{ mt: 2 }}>
+                                <Typography variant='body1' sx={{ mt: 2 }} color='info'>
                                     For children aged 3-8, we recommend front-facing car seats.
                                 </Typography>
                             ) : (
-                                <Typography variant='body1' sx={{ mt: 2 }}>
+                                <Typography variant='body1' sx={{ mt: 2 }} color='info'>
                                     For children aged 9 and above, we recommend booster seats.
                                 </Typography>
                             )
@@ -150,6 +154,43 @@ export default function NewOrder() {
                             label="Feeding Chair - $35pw"
                         />
                     </FormControl>
+                    
+                    <Typography sx={{ my: 2 }}>
+                        Select preferred date and time to { deliver ? "deliver" : "pick up" } the car seat:
+                    </Typography>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DatePicker
+                            label="Date"
+                            value={date}
+                            onChange={(newValue) => setDate(newValue)}
+                            minDate={new Date()}
+                            renderInput={(params) => <TextField {...params} fullWidth sx={{ mt: 1, mx: 1 }} />}
+                        />
+                        <TimePicker
+                            label="Time"
+                            value={time}
+                            onChange={(newValue) => setTime(newValue)}
+                            renderInput={(params) => <TextField {...params} fullWidth sx={{ mt: 1, mx: 1 }} />}
+                        />
+                    </LocalizationProvider>
+
+                    <Typography color='info' sx={{ mt: 2 }}>
+                        You may be contacted to reschedule if there  are any issues <br /> with the selected date and time.
+                    </Typography>
+
+                    <Typography sx={{ mt: 2 }}>
+                        How many weeks do you need to hire for?
+                    </Typography>
+                    <TextField
+                        type="number"
+                        inputProps={{ min: 1, max: 52 }}
+                        value={duration}
+                        onChange={e => setDuration(Math.max(1, Math.min(52, Number(e.target.value))))}
+                        fullWidth
+                        sx={{ mt: 1 }}
+                        label="Duration (weeks)"
+                    />
+
                     <Button fullWidth variant="contained" color="primary" onClick={handleSubmit} sx={{ mt: 2 }}>
                         Next
                     </Button>
