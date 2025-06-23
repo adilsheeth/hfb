@@ -100,7 +100,7 @@ Maintenance and updates will be handled through regular commits to the repositor
 Gantt Chart for the project timeline:
 <img src="./docs/Online Gantt 20250622.png" alt="Gantt Chart" width="600">
 
-The only collaborator on this project is Adil Sheeth, who has been responsible for all aspects of the development, including design, coding, testing, and deployment. Thus, only Github was used for version control, not so much for collaboration (but it is very possible!).
+The only collaborator on this project is me, who has been responsible for all aspects of the development, including design, coding, testing, and deployment. Thus, only Github was used for version control, not so much for collaboration (but it is very possible!).
 
 #### Communication Issues
 
@@ -122,11 +122,13 @@ Data flow diagrams were used to model the system architecture and data structure
 
 <img src="./docs/DFD.png" alt="Data flow Diagram" width="600">
 
-Structure Charts were used to outline the flow of data and processes within the PWA. These charts provided a clear overview of how users interact with the system and how data is processed, from product selection to booking confirmation.
+Flowcharts were used to outline the flow of data and processes within the PWA. These charts provided a clear overview of how users interact with the system and how data is processed, from product selection to booking confirmation.
 
 <img src="./docs/Structure Chart.png" alt="Structure Chart" width="600">
 
 Class Diagrams and Decision Trees were not used in this project, as the focus was on a functional PWA rather than a complex object-oriented design. The data structures were simple enough to be represented without the need for detailed class diagrams.
+
+A structure chart was not created for this project as the project was structured in a modular way, with clear separation of concerns between the frontend and backend components. The codebase follows best practices for maintainability and scalability, with components organized into directories based on functionality. 
 
 ## Component B
 Complete Software Solution
@@ -136,7 +138,7 @@ The HFB PWA was developed using a combination of modern web technologies, includ
 
 Appropriate algorithm design was employed to handle key functionalities such as product availability checking, booking management, and payment processing. The algorithms were designed to be efficient and scalable, ensuring that the PWA can handle a growing number of users and bookings without performance degradation.
 
-Version control was managed using Git, with regular commits to the repository to track changes and ensure a clear history of development. The project was deployed using Firebase Hosting, which provides a fast and reliable platform for serving the PWA.
+Version control was managed using Git, with regular commits to the repository to track changes and ensure a clear history of development. The project was deployed using Firebase Hosting, which provides a fast and reliable platform for serving the PWA. Github also hosts the project's process diary through commits, and logs of changes that have occurred.
 
 ### Testing and Evaluating
 The project underwent extensive testing to ensure functionality, performance, and usability. The following testing methods were employed:
@@ -146,7 +148,15 @@ The project underwent extensive testing to ensure functionality, performance, an
 - Performance testing to ensure fast load times and responsiveness
 - Cross-browser testing to ensure compatibility across major browsers
 
+Lighthouse was used to test the accessibility, and page load testing. Additionally, testing was conducted on different devices, in order to ensure that the solution was cross-compatible and effective.
+
+Feedback from the client was considered throughout the development cycle, including:
+- Ditching the payment system
+- Creating a better sign up system, including google maps integration
+- Creating an admin panel with the ability to change the status of an order.
+
 Code in JavaScript was optimised for performance, with a focus on reducing load times and ensuring a smooth user experience. The PWA was designed to be responsive and mobile-friendly, with a clean and intuitive interface that allows users to easily browse products, make bookings, and manage their accounts.
+
 
 ## Component C
 Presentation is attached to the Google Classroom submission.
