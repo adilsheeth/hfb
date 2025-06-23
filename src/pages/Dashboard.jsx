@@ -1,4 +1,4 @@
-import { Box, Button, Typography, Grid, Card, CardContent, CardActions, CircularProgress } from "@mui/material";
+import { Box, Button, Typography, Grid, Card, CardContent, CardActions, CircularProgress, useMediaQuery, useTheme } from "@mui/material";
 import Header from "../layout/Header";
 import { useAuth } from "../firebase/authContext";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,8 @@ export default function Dashboard() {
     const [orders, setOrders] = useState([]);
     const [ userDetails, setUserDetails ] = useState(null);
     const [loading, setLoading] = useState(true);
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     useEffect(() => {
         setLoading(true);
@@ -63,14 +65,32 @@ export default function Dashboard() {
                     </Box>
                 ) : (
                     <>
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2, px: 2 }}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: isMobile ? 'column' : 'row',
+                                alignItems: isMobile ? 'stretch' : 'center',
+                                justifyContent: 'space-between',
+                                mb: 2,
+                                px: 2,
+                                gap: isMobile ? 2 : 0
+                            }}
+                        >
                             <Typography
                                 variant="h4"
-                                sx={{ my: 2, fontWeight: 700, color: 'text.primary', letterSpacing: 1, textAlign: 'left' }}
+                                sx={{ my: 2, fontWeight: 700, color: 'text.primary', letterSpacing: 1, textAlign: isMobile ? 'center' : 'left' }}
                             >
                                 Hey {(userDetails && userDetails.name) ? userDetails.name : currentUser ? currentUser.email : ""}!
                             </Typography>
-                            <Box sx={{ display: 'flex', gap: 2 }}>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: isMobile ? 'column' : 'row',
+                                    gap: 2,
+                                    alignItems: isMobile ? 'stretch' : 'center',
+                                    width: isMobile ? '100%' : 'auto',
+                                }}
+                            >
                                 <Button onClick={() => navigate("/user-settings")} variant="outlined" color="secondary" size="large" sx={{ fontWeight: 600, borderRadius: 2 }} disabled>
                                     User Settings
                                 </Button>
@@ -93,7 +113,7 @@ export default function Dashboard() {
                             )}
                             {orders.map((order, idx) => (
                                 <Grid item xs={12} sm={6} md={4} key={idx}>
-                                    <Box sx={{ width: '50vh', p: 3, textAlign: 'center', m: '0 auto' }}>
+                                    <Box sx={{ width: '100%', maxWidth: 400, p: 3, textAlign: 'center', m: '0 auto', boxSizing: 'border-box' }}>
                                         <Card sx={{ borderRadius: 2, p: 2 }}>
                                             <CardContent>
                                                 <Typography variant="h5" sx={{ mb: 2, fontWeight: 700, color: 'primary.main', letterSpacing: 1 }}>
