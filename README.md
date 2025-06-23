@@ -2,7 +2,9 @@
 Made with <3 by Adil Sheeth as a Software Engineering Major Work.
 
 ## Installation
-To run this project, clone the repository locally and run the following commands:
+The project is live! You can access the live version of the HFB PWA at [https://hfb-pwa.web.app](https://hfb-pwa.web.app).
+
+Alternatively, to run this project locally, clone the repository locally and run the following commands:
 
 ```bash
 npm install
