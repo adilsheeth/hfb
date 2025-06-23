@@ -18,7 +18,7 @@ export const signOutUser = () => {
 export const resetPassword = async (user) => {
     sendPasswordResetEmail(auth, user.email)
     .then(() => {
-        console.log("Password reset email sent successfully");
+        // console.log("Password reset email sent successfully");
     })
     .catch((error) => {
         console.error("Error sending password reset email:", error);
@@ -65,7 +65,7 @@ export const deleteOrder = async (user, orderId) => {
     const uid = user.uid;
     const orderRef = ref(db, 'users/' + uid + '/orders/' + orderId);
     return set(orderRef, null).then(() => {
-        console.log("Order deleted successfully");
+        // console.log("Order deleted successfully");
     }).catch((error) => {
         console.error("Error deleting order:", error);
     });

@@ -45,7 +45,6 @@ export default function Login(){
             navigate("/dashboard")
         })
         .catch((e)=> {
-            console.log(e)
             alert("Something went wrong. Please try again!")
         })
     }

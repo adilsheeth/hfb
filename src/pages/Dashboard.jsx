@@ -30,7 +30,7 @@ export default function Dashboard() {
             const data = snapshot.val();
             if (data && data.orders) {
                 // Handle both array and object formats
-                console.log("Fetched orders:", data.orders);
+                // console.log("Fetched orders:", data.orders);
                 // If orders is an object, preserve the key (order uid) as an attribute
                 let orderArr = Array.isArray(data.orders)
                     ? data.orders
@@ -39,7 +39,7 @@ export default function Dashboard() {
                     : Object.entries(data.orders)
                         .filter(([_, order]) => order && typeof order === "object")
                         .map(([uid, order]) => ({ ...order, uid }));
-                console.log("Processed orders:", orderArr);
+                // console.log("Processed orders:", orderArr);
                 setOrders(orderArr);
             } else {
                 setOrders([]);

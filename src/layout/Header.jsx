@@ -20,7 +20,7 @@ export default function Header() {
             navigate("/")
         })
         .catch((e) => {
-            console.log(e)
+            // console.log(e)
         })
     }
 
