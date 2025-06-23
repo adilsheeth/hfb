@@ -18,6 +18,8 @@ password: password1!
 To access the admin panel (which is currently *unsecured*), navigate to the suburl `/admin`.
 
 
+
+
 ## Component A
 Project Documentation
 

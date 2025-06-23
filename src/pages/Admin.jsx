@@ -1,11 +1,13 @@
-import { Box, Typography, Grid, Card, CardContent } from "@mui/material";
+import { Box, Typography, Grid, Card, CardContent, CircularProgress } from "@mui/material";
 import Header from "../layout/Header";
 import { useEffect, useState } from "react";
 import { db } from "../firebase/config";
 import { ref, get } from "firebase/database";
+import { confirmOrderByOrderId } from "../firebase/auth";
 
 export default function Admin() {
     const [ordersByStatus, setOrdersByStatus] = useState({ pending: [], confirmed: [], completed: [] });
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchAllOrders() {
@@ -31,13 +33,75 @@ export default function Admin() {
                 });
             }
             setOrdersByStatus(byStatus);
+            setLoading(false);
         }
         fetchAllOrders();
     }, []);
 
+    // Handler for confirming a pending order by orderId
+    const handleConfirmOrder = async (order) => {
+        setLoading(true);
+        await confirmOrderByOrderId(order.uid || order.orderId);
+        // Refresh orders after update
+        const usersRef = ref(db, 'users');
+        const snapshot = await get(usersRef);
+        const data = snapshot.val();
+        const byStatus = { pending: [], confirmed: [], completed: [] };
+        if (data) {
+            Object.entries(data).forEach(([uid, user]) => {
+                if (user.orders) {
+                    let orderArr = Array.isArray(user.orders)
+                        ? user.orders.filter(order => order && typeof order === "object").map((order, idx) => ({ ...order, uid: order.uid || idx }))
+                        : Object.entries(user.orders).filter(([_, order]) => order && typeof order === "object").map(([oid, order]) => ({ ...order, uid: oid }));
+                    orderArr.forEach(order => {
+                        const status = (order.status || 'pending').toLowerCase();
+                        if (byStatus[status]) {
+                            byStatus[status].push({ ...order, customer: user });
+                        } else {
+                            byStatus['pending'].push({ ...order, customer: user });
+                        }
+                    });
+                }
+            });
+        }
+        setOrdersByStatus(byStatus);
+        setLoading(false);
+    };
+
+    // Handler for marking a confirmed order as completed by orderId
+    const handleCompleteOrder = async (order) => {
+        setLoading(true);
+        // Reuse confirmOrderByOrderId logic, but set status to 'completed'
+        await confirmOrderByOrderId(order.uid || order.orderId, 'completed');
+        // Refresh orders after update
+        const usersRef = ref(db, 'users');
+        const snapshot = await get(usersRef);
+        const data = snapshot.val();
+        const byStatus = { pending: [], confirmed: [], completed: [] };
+        if (data) {
+            Object.entries(data).forEach(([uid, user]) => {
+                if (user.orders) {
+                    let orderArr = Array.isArray(user.orders)
+                        ? user.orders.filter(order => order && typeof order === "object").map((order, idx) => ({ ...order, uid: order.uid || idx }))
+                        : Object.entries(user.orders).filter(([_, order]) => order && typeof order === "object").map(([oid, order]) => ({ ...order, uid: oid }));
+                    orderArr.forEach(order => {
+                        const status = (order.status || 'pending').toLowerCase();
+                        if (byStatus[status]) {
+                            byStatus[status].push({ ...order, customer: user });
+                        } else {
+                            byStatus['pending'].push({ ...order, customer: user });
+                        }
+                    });
+                }
+            });
+        }
+        setOrdersByStatus(byStatus);
+        setLoading(false);
+    };
+
     const renderOrderCard = (order, idx) => (
         <Grid item xs={12} sm={6} md={4} key={order.uid + '-' + idx}>
-            <Box sx={{ width: '50vh', p: 3, textAlign: 'center', m: '0 auto' }}>
+            <Box sx={{ width: '48vh', p: 3, textAlign: 'center', m: '0 auto' }}>
                 <Card sx={{ borderRadius: 2, p: 2 }}>
                     <CardContent>
                         <Typography variant="h5" sx={{ mb: 2, fontWeight: 700, color: 'primary.main', letterSpacing: 1 }}>
@@ -46,6 +110,22 @@ export default function Admin() {
                         <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600, color: order.status === 'cancelled' ? 'error.main' : order.status === 'confirmed' ? 'success.main' : order.status === 'completed' ? 'info.main' : 'warning.main', letterSpacing: 1 }}>
                             Status: {order.status ? order.status.charAt(0).toUpperCase() + order.status.slice(1) : 'Pending'}
                         </Typography>
+                        {/* Confirm button for pending orders */}
+                        {order.status === 'pending' && (
+                            <Box sx={{ mb: 2 }}>
+                                <button onClick={() => handleConfirmOrder(order)} style={{ background: '#2e7d32', color: 'white', border: 'none', borderRadius: 4, padding: '8px 16px', cursor: 'pointer', fontWeight: 600 }}>
+                                    Mark as Confirmed
+                                </button>
+                            </Box>
+                        )}
+                        {/* Complete button for confirmed orders */}
+                        {order.status === 'confirmed' && (
+                            <Box sx={{ mb: 2 }}>
+                                <button onClick={() => handleCompleteOrder(order)} style={{ background: '#0288d1', color: 'white', border: 'none', borderRadius: 4, padding: '8px 16px', cursor: 'pointer', fontWeight: 600 }}>
+                                    Mark as Completed
+                                </button>
+                            </Box>
+                        )}
                         <Box sx={{ mb: 2, mt: 1 }}>
                             <Typography variant="subtitle1" sx={{ fontWeight: 600, color: 'text.secondary', mb: 1 }}>
                                 Child's Age:
@@ -148,23 +228,32 @@ export default function Admin() {
         <Box>
             <Header />
             <Box sx={{ px: 2 }}>
-                <Typography variant="h4" sx={{ my: 3, fontWeight: 700, color: 'primary.main', textAlign: 'center', letterSpacing: 1 }}>
-                    Admin Dashboard
-                </Typography>
-                {['pending', 'confirmed', 'completed'].map(status => (
-                    <Box key={status} sx={{ mb: 5 }}>
-                        <Typography variant="h5" sx={{ mb: 2, fontWeight: 700, color: status === 'pending' ? 'warning.main' : status === 'confirmed' ? 'success.main' : 'info.main', letterSpacing: 1, textAlign: 'left' }}>
-                            {status.charAt(0).toUpperCase() + status.slice(1)} Orders
-                        </Typography>
-                        <Grid container spacing={2}>
-                            {ordersByStatus[status].length === 0 ? (
-                                <Grid item xs={12}><Typography>No {status} orders found.</Typography></Grid>
-                            ) : (
-                                ordersByStatus[status].map(renderOrderCard)
-                            )}
-                        </Grid>
+                {loading ? (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+                        <CircularProgress size={60} thickness={5} sx={{ color: 'primary.main', mb: 2 }} />
+                        <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 600 }}>Loading admin dashboard...</Typography>
                     </Box>
-                ))}
+                ) : (
+                    <>
+                        <Typography variant="h4" sx={{ my: 3, fontWeight: 700, color: 'primary.main', textAlign: 'center', letterSpacing: 1 }}>
+                            Admin Dashboard
+                        </Typography>
+                        {['pending', 'confirmed', 'completed'].map(status => (
+                            <Box key={status} sx={{ mb: 5 }}>
+                                <Typography variant="h5" sx={{ mb: 2, fontWeight: 700, color: status === 'pending' ? 'warning.main' : status === 'confirmed' ? 'success.main' : 'info.main', letterSpacing: 1, textAlign: 'left' }}>
+                                    {status.charAt(0).toUpperCase() + status.slice(1)} Orders
+                                </Typography>
+                                <Grid container spacing={2}>
+                                    {ordersByStatus[status].length === 0 ? (
+                                        <Grid item xs={12}><Typography>No {status} orders found.</Typography></Grid>
+                                    ) : (
+                                        ordersByStatus[status].map(renderOrderCard)
+                                    )}
+                                </Grid>
+                            </Box>
+                        ))}
+                    </>
+                )}
             </Box>
         </Box>
     );

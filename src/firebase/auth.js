@@ -71,3 +71,28 @@ export const deleteOrder = async (user, orderId) => {
     });
 }
 
+// Update order status by searching all users' orders for a matching orderId
+export const confirmOrderByOrderId = async (orderId, newStatus = 'confirmed') => {
+    const usersRef = ref(db, 'users');
+    const snapshot = await get(usersRef);
+    const users = snapshot.val();
+    if (!users) return false;
+    for (const [uid, user] of Object.entries(users)) {
+        if (user.orders) {
+            // Handle both array and object formats
+            let orderEntries = Array.isArray(user.orders)
+                ? Object.entries(user.orders)
+                : Object.entries(user.orders);
+            for (const [oid, order] of orderEntries) {
+                if (order && (order.uid === orderId || order.orderId === orderId || oid === orderId)) {
+                    // Found the order, update its status
+                    const orderRef = ref(db, `users/${uid}/orders/${oid}`);
+                    await set(orderRef, { ...order, status: newStatus });
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+};
+
