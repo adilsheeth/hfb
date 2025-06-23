@@ -18,8 +18,6 @@ password: password1!
 To access the admin panel (which is currently *unsecured*), navigate to the suburl `/admin`.
 
 
-
-
 ## Component A
 Project Documentation
 
@@ -121,7 +119,12 @@ Additionally, the project was ensured to be compliant with all relevant legislat
 
 #### Modelling Tools
 Data flow diagrams were used to model the system architecture and data structures. This diagram helped visualize the relationships between different components and ensured a clear understanding of the system's functionality.
+
 <img src="./docs/DFD.png" alt="Data flow Diagram" width="600">
+
+Structure Charts were used to outline the flow of data and processes within the PWA. These charts provided a clear overview of how users interact with the system and how data is processed, from product selection to booking confirmation.
+
+<img src="./docs/Structure Chart.png" alt="Structure Chart" width="600">
 
 Class Diagrams and Decision Trees were not used in this project, as the focus was on a functional PWA rather than a complex object-oriented design. The data structures were simple enough to be represented without the need for detailed class diagrams.
 
