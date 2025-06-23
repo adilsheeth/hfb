@@ -157,6 +157,11 @@ Feedback from the client was considered throughout the development cycle, includ
 
 Code in JavaScript was optimised for performance, with a focus on reducing load times and ensuring a smooth user experience. The PWA was designed to be responsive and mobile-friendly, with a clean and intuitive interface that allows users to easily browse products, make bookings, and manage their accounts.
 
+Overall, the project was able to fulfil most of its functional and non-functional requirements, with a focus on delivering a high-quality user experience. However, a significant downfall is its lack of payment integration, which was removed from the project scope due to time constraints. This means that users can browse and book products, but cannot complete the payment process through the PWA. This is a significant limitation, as it prevents users from fully utilising the platform for its intended purpose, but can be addressed in future iterations of the project. 
+
+Additionally, the admin panel is not fully functional, as it does not allow for the management of products or bookings. This is another area that can be improved in future iterations of the project.
+
+The client was satisfied with the final product, and the PWA is ready for parallel deployment. The project has been documented thoroughly, including installation instructions, user guides, and technical documentation. The codebase is well-structured and follows best practices for maintainability and scalability. Testing was conducted by the client to ensure that the PWA meets their requirements and expectations.
 
 ## Component C
 Presentation is attached to the Google Classroom submission.
