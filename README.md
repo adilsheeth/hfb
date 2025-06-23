@@ -2,7 +2,7 @@
 Made with <3 by Adil Sheeth as a Software Engineering Major Work.
 
 ## Installation
-The project is live! You can access the live version of the HFB PWA at [https://hfb-pwa.web.app](https://hfb-pwa.web.app).
+The project is live! You can access the live version of the HFB PWA at [https://hfbpwa.web.app](https://hfbpwa.web.app).
 
 Alternatively, to run this project locally, clone the repository locally and run the following commands:
 
