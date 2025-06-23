@@ -22,8 +22,8 @@ export default function Summary() {
     return (
         <Box>
             <Header />
-            <Grid container direction={'column'} alignItems={'center'} justifyContent={'center'} spacing={5} padding={5}>
-                <Box sx={{ maxWidth: 500, width: '100%', p: 3 }}>
+            <Grid container direction={'column'} alignItems={'center'} justifyContent={'center'} spacing={5} sx={{ minHeight: '80vh', px: { xs: 1, sm: 5 } }}>
+                <Box sx={{ maxWidth: 500, width: '100%', p: { xs: 2, sm: 3 }, mx: 'auto', my: 4, boxSizing: 'border-box', bgcolor: 'background.paper', borderRadius: 2, boxShadow: { xs: 0, sm: 2 } }}>
                     <Typography variant="h3" sx={{ mb: 2, textAlign: "center", mx: 2, my: 4 }}>
                         Order Summary
                     </Typography>
